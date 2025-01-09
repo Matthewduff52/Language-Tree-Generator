@@ -192,9 +192,7 @@ def select(root):
             print('Parent: ' + str(path[1])) # parent node
         else:
             print('Parent: None')
-        # figure out how to access individual nodes
         search(root, int(ID))
-        #
 
 def read_file():
     while True:
@@ -209,4 +207,4 @@ def read_file():
             pass
         else:
             break
-    
+
