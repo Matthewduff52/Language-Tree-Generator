@@ -162,12 +162,39 @@ def display(root):
     display_chart.clear()
     chart.clear()
 
+def search(node, value):
+    if node is None: # if node is empty
+        return node
+    if value < node.id_value:
+        search(node.left, value) # recursive search
+    elif value > node.id_value:
+        search(node.right, value) # recursive search
+    elif value == node.id_value:
+        if node.left != None:
+            print('Left:   ' + str(node.left.id_value)) # left child
+        else:
+            print('Left:   None')
+        if node.right != None:
+            print('Right:  ' + str(node.right.id_value)) # right child
+        else:
+            print('Right:  None')
+        print('Time:   ' + str(node.time)) # time value
+
 def select(root):
     while True:
         # select node and output info on node
         ID = input('ID: ')
+        if ID == 'close':
+            break
         #output parent node, left node, right node, time
-        break
+        path = traverse_node_to_root(root, int(ID))
+        if len(path) > 1:
+            print('Parent: ' + str(path[1])) # parent node
+        else:
+            print('Parent: None')
+        # figure out how to access individual nodes
+        search(root, int(ID))
+        #
 
 def read_file():
     while True:
