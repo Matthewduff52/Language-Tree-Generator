@@ -1,16 +1,7 @@
-from binary_tree import *
+from binary_tree import read_file  # Import the read_file function
+from tree_generator import write_file, edit_file  # Import the write_file and edit_file functions
+from gui import * # Import the run_gui function
 
 if __name__ == "__main__":
-
-    while True:
-        # main menu to select between creating / opening a tree
-        root = None
-        root = generate(root,16)
-        file = input('open: ')
-        input_node(root, file) # input from file
-        display(root)
-        close = input('open new/close [o/any]:')
-        if close == 'o':
-            pass
-        else:
-            break
+    # Automatically open the GUI
+    run_gui(write_file, edit_file, read_file)  # Pass the functions to the GUI
