@@ -1,0 +1,27 @@
+to make a new file follow the prompts:
+- l/r:
+- node:
+- generation:
+
+node and generation refer to the parent node
+of what you are trying to add
+
+node means (on a complete tree) how many nodes
+from the left will the node be
+
+generation refers to distance from root
+
+l/r refers to which side the new node will be
+placed
+
+so to create a root node with two children, type:
+l	(left from node 1 generation 1)
+1
+1
+r	(right from node 1 generation 1)
+1
+1
+
+on 'l/r:' press any other key to close new file
+
+a new file should be created
