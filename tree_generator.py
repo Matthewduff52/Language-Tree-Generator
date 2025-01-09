@@ -1,19 +1,17 @@
-from binary_tree import *
 # Tree text file generator
-    
 def write_file():
-    filename = input('name new file:')
+    filename = input('name new file:') # take file name input
     filename = filename + ".txt"
 
-    text = []
-    # add lines to text[]
+    text = [] # empty array for loading text data
+
     while True:
-        side = input('l/r:')
+        side = input('l/r:') # is new node on the left or right of parent
 
         if side == 'l':
-            node = int(input('node:'))
-            gen = int(input('generation:'))
-            text.append(side)
+            node = int(input('node:')) # parent node how many nodes from the left (on a complete tree)
+            gen = int(input('generation:')) # child node distance from root
+            text.append(side) # load text data into array
             text.append(str(node))
             text.append(str(gen))
         elif side == 'r':
@@ -23,8 +21,8 @@ def write_file():
             text.append(str(node))
             text.append(str(gen))
         else:
-            break
+            break # end file construction
 
-    with open(filename, "w") as f:
+    with open(filename, "w") as f: # create or edit existing file
         for line in text:
-            f.write(line + "\n")  # Add newline character to write each line on a new line
+            f.write(line + "\n")  # Add newline character for file formatting

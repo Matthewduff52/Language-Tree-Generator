@@ -1,23 +1,12 @@
-from binary_tree import *
-from tree_generator import *
+from binary_tree import * #read_file()
+from tree_generator import * #write_file()
 
 if __name__ == "__main__":
-
     while True:
-        # main menu to select between creating / opening a tree
-        x = input('menu [new/open]:')
+        x = input('menu [new/open]:') # main menu
         if x == 'new':
-            write_file()
+            write_file() # write a new tree file
         elif x == 'open':
-            root = None
-            root = generate(root,16)
-            file = input('open: ')
-            input_node(root, file) # input from file
-            display(root)
-            close = input('open new/close [o/any]:')
-            if close == 'o':
-                pass
-            else:
-                break
+            read_file() # read an existing tree file
         else:
-            break
+            break # end program

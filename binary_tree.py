@@ -9,19 +9,19 @@ def insert(root, id_value): # insert node
     if root is None:
         return Node(id_value)
     else:
-        if id_value < root.id_value:
-            root.left = insert(root.left, id_value)
+        if id_value < root.id_value: # lower IDs on left, higher IDs on right
+            root.left = insert(root.left, id_value) # recursive function
         else:
-            root.right = insert(root.right, id_value)
+            root.right = insert(root.right, id_value) # recursive function
         return root
     
 def generate(root, generation): # generate root node
     if root is None:
-        x = 2**(generation-1)
-        root = insert(root, x)
+        x = 2**(generation-1) # Root ID is 2^generation
+        root = insert(root, x) # this accounts for a complete tree of # generations
         return root
     else:
-        print("tree is not empty")
+        print("tree is not empty") # in case function is called on a tree with data
 
 def left_from_node(root, node, generation):
     # from node 2 on generation 5 (6144), add a node to the left (5120)
@@ -30,9 +30,9 @@ def left_from_node(root, node, generation):
         while node > 1:
             x = x + 2**(17-generation) # parent node value 
             node -= 1
-        y = x - 2**(15-generation)
+        y = x - 2**(15-generation) # child node value
         # insert node
-        root = insert(root, y)
+        root = insert(root, y) # insert child vith value y
     else:
         print("node value is too high")
 
@@ -49,13 +49,13 @@ def right_from_node(root, node, generation):
     else:
         print("node value is too high")
 
-def preorder_traversal(lst,root):
+def preorder_traversal(lst,root): # pre-order traversal function for display()
     if root:
         lst.append(root.id_value)
         preorder_traversal(lst,root.left)
         preorder_traversal(lst,root.right)
         
-def traverse_node_to_root(root, target):
+def traverse_node_to_root(root, target): # returns list populated by node IDs from node to root
     if root is None:
         return []
     
@@ -73,7 +73,7 @@ def traverse_node_to_root(root, target):
             current = current.right
     return(len(path))
 
-def traverse_root_to_node(root, target):
+def traverse_root_to_node(root, target): # returns list populated by node IDs from root to node
     if root is None:
         return []
     
@@ -91,7 +91,7 @@ def traverse_root_to_node(root, target):
             current = current.right
     return(len(path))
 
-def input_node(root, file):
+def input_node(root, file): # reads file and turns it into nodes
 
     with open(file, 'r') as f:
     # keep going until we exhaust the file
@@ -119,10 +119,10 @@ def display(root):
     while i < len(chart):
         x = len(traverse_node_to_root(root, chart[i]))
         if x > 1:
-            display_chart[i] = "  └──" + str(display_chart[i])
+            display_chart[i] = "  └──" + str(display_chart[i]) # adds └── before all nodes under the root node
         if x > 2:
             while x > 2:
-                display_chart[i] = "     " + str(display_chart[i])
+                display_chart[i] = "     " + str(display_chart[i]) # adds space for every layer past generation 2
                 x -= 1
         i += 1
 
@@ -130,19 +130,19 @@ def display(root):
     while k > 0:
         a = str(display_chart[k]).find('└')
         if str(display_chart[k])[a] == '└' and str(display_chart[k-1])[a] == ' ':
-            display_chart[k-1] = str(display_chart[k-1])[:a] + '│' + str(display_chart[k-1])[a + 1:]
+            display_chart[k-1] = str(display_chart[k-1])[:a] + '│' + str(display_chart[k-1])[a + 1:] # places bar in space above elbow
         else:
             pass
         
         b = str(display_chart[k]).find('│')
         if str(display_chart[k])[b] == '│' and str(display_chart[k-1])[b] == ' ':
-            display_chart[k-1] = str(display_chart[k-1])[:b] + '│' + str(display_chart[k-1])[b + 1:]
+            display_chart[k-1] = str(display_chart[k-1])[:b] + '│' + str(display_chart[k-1])[b + 1:] # places bar in space above bar
         else:
             pass
 
         c = str(display_chart[k]).find('└')
         if str(display_chart[k])[c] == '└' and str(display_chart[k-1])[c] == '└':
-            display_chart[k-1] = str(display_chart[k-1])[:c] + '├' + str(display_chart[k-1])[c + 1:]
+            display_chart[k-1] = str(display_chart[k-1])[:c] + '├' + str(display_chart[k-1])[c + 1:] # places T in elbow above elbow
         else:
             pass
 
@@ -150,14 +150,36 @@ def display(root):
         if d > len(str(display_chart[k])):
             pass
         elif str(display_chart[k-1])[d] == '└' and str(display_chart[k])[d] == '│':
-            display_chart[k-1] = str(display_chart[k-1])[:d] + '├' + str(display_chart[k-1])[d + 1:]
+            display_chart[k-1] = str(display_chart[k-1])[:d] + '├' + str(display_chart[k-1])[d + 1:] # places T in elbow above bar
         else:
             pass
         k -= 1
 
     z = 0
     while z < len(display_chart):
-        print(display_chart[z])
+        print(display_chart[z]) # print complete tree display
         z += 1
     display_chart.clear()
     chart.clear()
+
+def select(root):
+    while True:
+        # select node and output info on node
+        ID = input('ID: ')
+        #output parent node, left node, right node, time
+        break
+
+def read_file():
+    while True:
+        root = None
+        root = generate(root,16) # 2^16 IDs
+        file = input('open: ')
+        input_node(root, file) # input from file
+        display(root)
+        select(root)
+        close = input('open new/back to menu [o/any]:')
+        if close == 'o':
+            pass
+        else:
+            break
+    
