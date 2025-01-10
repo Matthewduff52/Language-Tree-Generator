@@ -4,4 +4,4 @@ from gui import * # Import the run_gui function
 
 if __name__ == "__main__":
     # Automatically open the GUI
-    run_gui(write_file, edit_file, read_file)  # Pass the functions to the GUI
+    run_gui()

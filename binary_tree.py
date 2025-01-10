@@ -194,11 +194,11 @@ def select(root):
             print('Parent: None')
         search(root, int(ID))
 
-def read_file():
+def read_file(file_name):
     while True:
         root = None
         root = generate(root,16) # 2^16 IDs
-        file = input('open: ')
+        file = file_name #changed to work with new GUI
         input_node(root, file) # input from file
         display(root)
         select(root)

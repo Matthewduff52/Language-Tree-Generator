@@ -1,30 +1,42 @@
 import tkinter as tk
+from binary_tree import *
+from tree_generator import *
 
-def run_gui(write_file_func, edit_file_func, read_file_func):
-    # Create the main window
-    root = tk.Tk()
+root = tk.Tk()
+user_input = ""
+
+def open_textbox():
+    global user_input
+
+    label = tk.Label(root, text="Please enter file name:")
+    label.pack(pady=5)
+
+    textbox = tk.Text(root, height=5, width=20)
+    textbox.pack(pady=20)
+
+    def on_button_click():
+        global user_input
+        user_input = textbox.get("1.0", tk.END).strip()
+        if user_input:
+            print("User   Input:", user_input)
+            textbox.delete("1.0", tk.END)
+            read_file(user_input)
+        else:
+            print("No input provided. Please enter a valid file path.")
+
+    enter_button = tk.Button(root, text="Enter", command=on_button_click)
+    enter_button.pack(pady=5)
+
+def run_gui():
     root.title("Language Evolution Simulator")
-
-    # Set the default size of the window
-    root.geometry("400x300")  # Width x Height
-
-    # Create a label with a welcome message
+    root.geometry("400x300")
     label = tk.Label(root, text="Welcome to the Language Evolution Simulator!")
-    label.pack(pady=5)  # Add some vertical padding
+    label.pack(pady=5)
 
-    # Create a frame to hold the buttons
     button_frame = tk.Frame(root)
-    button_frame.pack(pady=20)  # Add some vertical padding for the button frame
+    button_frame.pack(pady=20)
 
-    # Create buttons for New, Edit, and Open
-    new_button = tk.Button(button_frame, text="New", command=lambda: (write_file_func(), root.quit()))
-    new_button.pack(side=tk.LEFT, padx=10)  # Pack the button to the left with padding
+    new_button = tk.Button(text="Open", command=open_textbox)
+    new_button.pack(side=tk.LEFT, padx=10)
 
-    edit_button = tk.Button(button_frame, text="Edit", command=lambda: (edit_file_func(), root.quit()))
-    edit_button.pack(side=tk.LEFT, padx=10)  # Pack the button to the left with padding
-
-    open_button = tk.Button(button_frame, text="Open", command=lambda: (read_file_func(), root.quit()))
-    open_button.pack(side=tk.LEFT, padx=10)  # Pack the button to the left with padding
-
-    # Start the Tkinter event loop
     root.mainloop()
