@@ -195,14 +195,14 @@ def select(root):
             print('Parent: None')
         search(root, int(ID))
 
-def read_file(file_name, god):
+def read_file(file_name):
     root = None
     root = generate(root,16) # 2^16 IDs
-    god = root
     file = file_name #changed to work with new GUI
     input_node(root, file) # input from file
     display(root)
     select(root)
-    
+    return root
+
    
 
