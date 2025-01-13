@@ -159,6 +159,7 @@ def display(root):
     while z < len(display_chart):
         print(display_chart[z]) # print complete tree display
         z += 1
+    return display_chart
     display_chart.clear()
     chart.clear()
 
@@ -194,17 +195,13 @@ def select(root):
             print('Parent: None')
         search(root, int(ID))
 
-def read_file(file_name):
-    while True:
-        root = None
-        root = generate(root,16) # 2^16 IDs
-        file = file_name #changed to work with new GUI
-        input_node(root, file) # input from file
-        display(root)
-        select(root)
-        close = input('open new/back to menu [o/any]:')
-        if close == 'o':
-            pass
-        else:
-            break
+def read_file(file_name, god):
+    root = None
+    root = generate(root,16) # 2^16 IDs
+    god = root
+    file = file_name #changed to work with new GUI
+    input_node(root, file) # input from file
+    display(root)
+    select(root)
+   
 
