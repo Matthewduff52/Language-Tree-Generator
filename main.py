@@ -1,14 +1,7 @@
-from binary_tree import * #read_file()
-from tree_generator import * #write_file()
+from binary_tree import read_file  # Import the read_file function
+from tree_generator import write_file, edit_file  # Import the write_file and edit_file functions
+from gui import * # Import the run_gui function
 
 if __name__ == "__main__":
-    while True:
-        x = input('menu [new/edit/open]:') # main menu
-        if x == 'new':
-            write_file() # write a new tree file
-        elif x == 'edit':
-            edit_file() # edit an existing tree file
-        elif x == 'open':
-            read_file() # read an existing tree file
-        else:
-            break # end program
+    # Automatically open the GUI
+    run_gui()

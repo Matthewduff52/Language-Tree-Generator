@@ -155,10 +155,30 @@ def display(root):
             pass
         k -= 1
 
+    # find max length of display_chart indeces
+    # add " " to each index for length normalization
+    display_chart[0] = str(display_chart[0])
+    
+    max_length = 0
+    x = 0
+    while x < len(display_chart):
+        length = len(display_chart[x])
+        if length > max_length:
+            max_length = length
+        x += 1
+
+    y = 0
+    while y < len(display_chart):
+        if len(display_chart[y]) < max_length:
+            display_chart[y] = display_chart[y] + (" " * (max_length - len(display_chart[y])))
+        y += 1
+        
+
     z = 0
     while z < len(display_chart):
         print(display_chart[z]) # print complete tree display
         z += 1
+    return display_chart
     display_chart.clear()
     chart.clear()
 
@@ -194,17 +214,14 @@ def select(root):
             print('Parent: None')
         search(root, int(ID))
 
-def read_file():
-    while True:
-        root = None
-        root = generate(root,16) # 2^16 IDs
-        file = input('open: ')
-        input_node(root, file) # input from file
-        display(root)
-        select(root)
-        close = input('open new/back to menu [o/any]:')
-        if close == 'o':
-            pass
-        else:
-            break
+def read_file(file_name):
+    root = None
+    root = generate(root,16) # 2^16 IDs
+    file = file_name #changed to work with new GUI
+    input_node(root, file) # input from file
+    display(root)
+    select(root)
+    return root
+
+   
 
