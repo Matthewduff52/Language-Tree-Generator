@@ -219,8 +219,8 @@ def read_file(file_name):
     root = generate(root,16) # 2^16 IDs
     file = file_name #changed to work with new GUI
     input_node(root, file) # input from file
-    display(root)
-    select(root)
+    #display(root)
+    #select(root)
     return root
 
    
