@@ -5,6 +5,22 @@ class Node:
         self.right = None # right child
         self.time = None  # length of time since parent node
 
+def get_all_nodes(node):
+    if node is None:
+        return []
+    
+    children_nodes = []
+    
+    if node.left is not None:
+        children_nodes.append(node.left)
+        children_nodes.extend(get_all_nodes(node.left))
+    
+    if node.right is not None:
+        children_nodes.append(node.right)
+        children_nodes.extend(get_all_nodes(node.right))
+    
+    return children_nodes
+
 def insert(root, id_value): # insert node
     if root is None:
         return Node(id_value)
