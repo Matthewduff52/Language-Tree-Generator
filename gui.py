@@ -1,4 +1,5 @@
 import tkinter as tk
+import subprocess
 from tkinter import ttk
 from binary_tree import *
 from tree_generator import *
@@ -14,7 +15,6 @@ def clear_menu(): #this will completely clear the GUI menu
         widget.destroy()
 
 
-
 def get_selection(box_name):
     selected_option = box_name.get()  # Get the selected option
 
@@ -22,6 +22,37 @@ def get_selection(box_name):
     file_name = os.path.join(script_directory, 'test') + "\\" + selected_option
     
     display_tree(file_name)
+
+def edit_in_notepad(box_name):
+    selected_option = box_name.get()  # Get the selected option
+
+    script_directory = os.path.dirname(os.path.abspath(__file__))
+    file_name = os.path.join(script_directory, 'test') + "\\" + selected_option
+    
+    subprocess.run(['notepad.exe', file_name])
+
+
+def new_in_notepad(local_file_name):
+    # Strip any whitespace or newline characters from the filename
+    local_file_name = local_file_name.strip()
+    
+    # Get the script's directory
+    script_directory = os.path.dirname(os.path.abspath(__file__))
+    
+    # Construct the full file path
+    file_name = os.path.join(script_directory, 'test', local_file_name)
+    
+    # Ensure the 'test' directory exists
+    os.makedirs(os.path.dirname(file_name), exist_ok=True)
+    
+    # Create and save the new file
+    with open(file_name, 'w') as f:
+        pass  # Create an empty file
+    
+    # Optionally, open Notepad with the new file
+    subprocess.run(['notepad.exe', file_name])
+
+
 
 def destroy_labels():
     for widget in root.winfo_children():
@@ -91,7 +122,6 @@ def display_tree(file_name): #Display Tree
         user_label.pack(pady=0) 
 
     
-
 def display_files():
     clear_menu()
     script_directory = os.path.dirname(os.path.abspath(__file__))
@@ -111,6 +141,45 @@ def display_files():
     back_button = tk.Button(root, text="Back", command=lambda: display_main_menu())
     back_button.place(x = 300)
 
+def display_edit_menu():
+    clear_menu()
+    script_directory = os.path.dirname(os.path.abspath(__file__))
+    print(script_directory)
+    
+    directory = os.path.join(script_directory, 'test')
+    print(directory)
+    
+    contents = os.listdir(directory)  
+   
+    combobox = ttk.Combobox(root, values=contents)
+    combobox.place(x=40)
+
+    combo_button = tk.Button(root, text="Open", command=lambda: edit_in_notepad(combobox))
+    combo_button.place(x = 215)
+
+    back_button = tk.Button(root, text="Back", command=lambda: display_main_menu())
+    back_button.place(x = 300)
+
+def display_new_menu():
+    clear_menu()
+    script_directory = os.path.dirname(os.path.abspath(__file__))
+    print(script_directory)
+    
+    directory = os.path.join(script_directory, 'test')
+    print(directory)
+    
+    contents = os.listdir(directory)  
+   
+    textbox = tk.Text(root, height = 1, width = 15)
+    textbox.place(x=40)
+
+    open_button = tk.Button(root, text="Create file", command=lambda: new_in_notepad(textbox.get("1.0", tk.END)))
+    open_button.place(x = 215)
+
+    back_button = tk.Button(root, text="Back", command=lambda: display_main_menu())
+    back_button.place(x = 300)
+
+
 def display_main_menu():
     clear_menu()
     root.title("Language Evolution Simulator")
@@ -119,9 +188,9 @@ def display_main_menu():
     label.pack(pady=5)
     open_button = tk.Button(root, text="Open", command=lambda: display_files())
     open_button.place(x=75, y=25)
-    new_button = tk.Button(root, text="New")
+    new_button = tk.Button(root, text="New", command=lambda: display_new_menu())
     new_button.place(x=175, y=25)
-    edit_button = tk.Button(root, text="Edit")
+    edit_button = tk.Button(root, text="Edit", command=lambda: display_edit_menu())
     edit_button.place(x=275, y=25)
    
 
