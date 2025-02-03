@@ -16,41 +16,37 @@ def clear_menu(): #this will completely clear the GUI menu
 
 
 def get_selection(box_name):
+
     selected_option = box_name.get()  # Get the selected option
 
-    script_directory = os.path.dirname(os.path.abspath(__file__))
-    file_name = os.path.join(script_directory, 'test') + "\\" + selected_option
-    
-    display_tree(file_name)
+    if selected_option != "":
+        script_directory = os.path.dirname(os.path.abspath(__file__))
+        file_name = os.path.join(script_directory, 'test') + "\\" + selected_option
+        display_tree(file_name)
 
 def edit_in_notepad(box_name):
     selected_option = box_name.get()  # Get the selected option
 
-    script_directory = os.path.dirname(os.path.abspath(__file__))
-    file_name = os.path.join(script_directory, 'test') + "\\" + selected_option
-    
-    subprocess.run(['notepad.exe', file_name])
+    if selected_option != "":
+        script_directory = os.path.dirname(os.path.abspath(__file__))
+        file_name = os.path.join(script_directory, 'test') + "\\" + selected_option
+        
+        subprocess.run(['notepad.exe', file_name])
 
 
 def new_in_notepad(local_file_name):
-    # Strip any whitespace or newline characters from the filename
     local_file_name = local_file_name.strip()
-    
-    # Get the script's directory
-    script_directory = os.path.dirname(os.path.abspath(__file__))
-    
-    # Construct the full file path
-    file_name = os.path.join(script_directory, 'test', local_file_name)
-    
-    # Ensure the 'test' directory exists
-    os.makedirs(os.path.dirname(file_name), exist_ok=True)
-    
-    # Create and save the new file
-    with open(file_name, 'w') as f:
-        pass  # Create an empty file
-    
-    # Optionally, open Notepad with the new file
-    subprocess.run(['notepad.exe', file_name])
+
+    if local_file_name != "":
+        script_directory = os.path.dirname(os.path.abspath(__file__))
+        file_name = os.path.join(script_directory, 'test', local_file_name)
+
+        os.makedirs(os.path.dirname(file_name), exist_ok=True)
+        
+        with open(file_name, 'w') as f:
+            pass  # Create an empty file
+        
+        subprocess.run(['notepad.exe', file_name])
 
 
 
@@ -73,22 +69,23 @@ def open_textbox():
 
 
 def display_node_information(node_name, nodes_list, file_name):
-    clear_menu()
-    back_button = tk.Button(root, text="Back", command=lambda:display_tree(file_name))
-    back_button.pack(pady = 3)
+    if node_name != "":
+        clear_menu()
+        back_button = tk.Button(root, text="Back", command=lambda:display_tree(file_name))
+        back_button.pack(pady = 3)
 
-    for nodes in nodes_list:
-        print(nodes.id_value, node_name.replace(" ", ""))
-        if nodes.id_value == int(node_name.replace(" ", "")):
-            print("MATCH!")
-            user_label = tk.Label(root, text=("ID value: " + str(nodes.id_value)), font=('Courier New', 10)) 
-            user_label.pack(pady=0)
-            user_label = tk.Label(root, text=("Left: " + str(nodes.left)), font=('Courier New', 10)) 
-            user_label.pack(pady=0)            
-            user_label = tk.Label(root, text=("Right: " + str(nodes.right)), font=('Courier New', 10)) 
-            user_label.pack(pady=0)
-            user_label = tk.Label(root, text=("Time: " + str(nodes.time)), font=('Courier New', 10)) 
-            user_label.pack(pady=0)   
+        for nodes in nodes_list:
+            print(nodes.id_value, node_name.replace(" ", ""))
+            if nodes.id_value == int(node_name.replace(" ", "")):
+                print("MATCH!")
+                user_label = tk.Label(root, text=("ID value: " + str(nodes.id_value))) 
+                user_label.pack(pady=0)
+                user_label = tk.Label(root, text=("Left: " + str(nodes.left))) 
+                user_label.pack(pady=0)            
+                user_label = tk.Label(root, text=("Right: " + str(nodes.right))) 
+                user_label.pack(pady=0)
+                user_label = tk.Label(root, text=("Time: " + str(nodes.time))) 
+                user_label.pack(pady=0)   
 
 
 
@@ -137,9 +134,10 @@ def display_files():
 
     combo_button = tk.Button(root, text="View", command=lambda: get_selection(combobox))
     combo_button.place(x = 215)
-
     back_button = tk.Button(root, text="Back", command=lambda: display_main_menu())
     back_button.place(x = 300)
+
+
 
 def display_edit_menu():
     clear_menu()

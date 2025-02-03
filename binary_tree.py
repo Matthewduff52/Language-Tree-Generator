@@ -4,6 +4,7 @@ class Node:
         self.left = None  # left child
         self.right = None # right child
         self.time = None  # length of time since parent node
+        
 
 def get_all_nodes(node):
     if node is None:
