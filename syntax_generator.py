@@ -112,18 +112,20 @@ def reorder(sample_list,parts_list,word_order):
     
     return new_sample, new_parts, word_order
 
-sample = 'The quick brown fox clearly jumps over the lazy dog'
-parts = 'art.subj.sing adj.subj.sing adj.subj.sing N.subj.sing adv.3.sing.pres verb.3.sing.pres prep art.obj.sing adj.obj.sing N.obj.sing'
+def generate_order():
+    sample = 'The quick brown fox clearly jumps over the lazy dog'
+    parts = 'art.subj.sing adj.subj.sing adj.subj.sing N.subj.sing adv.3.sing.pres verb.3.sing.pres prep art.obj.sing adj.obj.sing N.obj.sing'
 
-sample_list = split(sample)
-parts_list = split(parts)
-word_order = []
-new_sample, new_parts, word_order = reorder(sample_list,parts_list,word_order)
-new_sample, new_parts, word_order = verbs_order(new_sample,new_parts,word_order)
-new_sample, new_parts, word_order = nouns_order(new_sample,new_parts,word_order)
+    sample_list = split(sample)
+    parts_list = split(parts)
+    word_order = []
 
+    new_sample, new_parts, word_order = reorder(sample_list,parts_list,word_order)
+    new_sample, new_parts, word_order = verbs_order(new_sample,new_parts,word_order)
+    new_sample, new_parts, word_order = nouns_order(new_sample,new_parts,word_order)
 
+    print(new_sample)
+    print(new_parts)
+    print (word_order)
 
-print(new_sample)
-print(new_parts)
-print (word_order)
+generate_order()
